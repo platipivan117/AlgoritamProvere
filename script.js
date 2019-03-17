@@ -31,32 +31,49 @@ $("#dugme").click(()=>{
         {
             start:   new Date(2019,2,17,16,5),
              finish:  new Date(2019,2,17,17,35)   
-           }
+           },
+       {    start:   new Date(2019,2,17,18,5),
+          finish:  new Date(2019,2,17,19,35)
+       } ,
+       {    start:   new Date(2019,2,17,20,0),
+        finish:  new Date(2019,2,17,20,15)
+     } 
+        
     ];
   
     var index;
     var razlikaUnetog=razlikaDatuma(dateUnetStart,dateUnetFinish);
     var moguceUpisivanje=false;
+    var  ifBreak=false;
   
 for(var i =1; i<nizDatuma.length;i++){
 
     if(razlikaDatuma(nizDatuma[i-1].finish,nizDatuma[i].start)>razlikaUnetog){
         alert("negde ima mesta");
         index=i-1;
+        for(var j = 0;j<nizDatuma.length;j++){
+            if(dateUnetStart.getTime()-nizDatuma[j].finish.getTime()>0){
+                alert("uslo u prvi if");
+                if(j==index){
+                    moguceUpisivanje=true;
+                    ifBreak=true;
+                    break;
+                }
+            
+    }
+            if(ifBreak){
+                break;
+
+            }
+   
+            moguceUpisivanje=false;
+        }
+     
     }
 
 }
-for(var i = 0;i<nizDatuma.length;i++){
-    if(dateUnetStart.getTime()-nizDatuma[i].finish.getTime()>0){
-        alert("uslo u prvi if");
-        if(i==index){
-            moguceUpisivanje=true;
-            break;
-        }
-        moguceUpisivanje=false;
-    }
- 
-}
+    ifBreak=false;
+
 
 
 if(moguceUpisivanje==false){
