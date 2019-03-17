@@ -1,12 +1,13 @@
 
 $(document).ready(()=>{
 
+
 $("#dugme").click(()=>{
     var s1= $("#1").val();
     var s2= $("#2").val();
  
     var dateUnetStart= new Date();
-   
+    var validacija=false;
     var n=s1.split(":");
    
     dateUnetStart.setHours(n[0]);
@@ -25,93 +26,55 @@ $("#dugme").click(()=>{
 
     var nizDatuma = [
         {
-         start:   new Date(2019,2,17,14,5),
-          finish:  new Date(2019,2,17,15,35)   
+         start:   new Date(2019,2,18,14,5),
+          finish:  new Date(2019,2,18,15,35)   
         },
         {
-            start:   new Date(2019,2,17,16,5),
-             finish:  new Date(2019,2,17,17,35)   
+            start:   new Date(2019,2,18,16,5),
+             finish:  new Date(2019,2,18,17,35)   
            },
-       {    start:   new Date(2019,2,17,18,5),
-          finish:  new Date(2019,2,17,19,35)
+       {    start:   new Date(2019,2,18,18,5),
+          finish:  new Date(2019,2,18,19,35)
        } ,
-       {    start:   new Date(2019,2,17,20,0),
-        finish:  new Date(2019,2,17,20,15)
+       {    start:   new Date(2019,2,18,20,0),
+        finish:  new Date(2019,2,18,19,35)
      } 
         
     ];
-  
-    var index;
-    var razlikaUnetog=razlikaDatuma(dateUnetStart,dateUnetFinish);
-    var moguceUpisivanje=false;
-    var  ifBreak=false;
-  
-for(var i =1; i<nizDatuma.length;i++){
+   
+        validacija=false;
+        var provera=true;
+        var brojac=null;
+        for(var i=1;i<nizDatuma.length;i++){
 
-    if(razlikaDatuma(nizDatuma[i-1].finish,nizDatuma[i].start)>razlikaUnetog){
-        alert("negde ima mesta");
-        index=i-1;
-        for(var j = 0;j<nizDatuma.length;j++){
-            if(dateUnetStart.getTime()-nizDatuma[j].finish.getTime()>0){
-                alert("uslo u prvi if");
-                if(j==index){
-                    moguceUpisivanje=true;
-                    ifBreak=true;
-                    break;
-                }
-            
-    }
-            if(ifBreak){
+            if((nizDatuma[i-1].start.getTime()<dateUnetStart.getTime() && nizDatuma[i-1].finish.getTime()>dateUnetStart.getTime()) || (nizDatuma[i-1].start.getTime()<dateUnetFinish.getTime() && nizDatuma[i-1].finish.getTime()>dateUnetFinish.getTime()) ){
+                alert("nalazi se unutar");
+                validacija=false;
+                provera=false;
                 break;
+            }
+            else if(dateUnetStart.getTime()< nizDatuma[i].start.getTime() && dateUnetFinish.getTime()<nizDatuma[i].start.getTime()){
+                alert("ne nalazi se unutra");
+                 validacija=true;
+                 break;
+             }
+             
+        }
+
+        if(validacija==true){
+            alert("moze");
+        }
+        else{
+
+            if(dateUnetStart.getTime()>nizDatuma[nizDatuma.length-1].finish.getTime()  ){
+                alert("moze");
 
             }
-   
-            moguceUpisivanje=false;
+            else{
+                alert("jok");
+            }
         }
-     
-    }
-
-}
-    ifBreak=false;
-
-
-
-if(moguceUpisivanje==false){
-    if(dateUnetFinish.getTime()<nizDatuma[0].start){
-        moguceUpisivanje=true;
-
-    }
-    alert("uslo u peslednji evili if");
-    if(dateUnetStart.getTime()>nizDatuma[nizDatuma.length-1].finish.getTime()){
-        moguceUpisivanje=true;
-
-    } 
-}
-if(moguceUpisivanje==true){
-    alert("ima mesta da se zakaze");
-}
-
-
-
-
-
-
-
-
-
-
-
-function razlikaDatuma(date1,date2) {
-    
-    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    return timeDiff;
-}
-
-
-
-
-
-    
+       
     
     
     
