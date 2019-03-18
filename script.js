@@ -31,8 +31,8 @@ $("#dugme").click(()=>{
           finish:  new Date(2019,2,18,15,35)   
         },
         {
-            start:   new Date(2019,2,18,16,5),
-             finish:  new Date(2019,2,18,17,35)   
+            start:   new Date(2019,2,18,16,00),
+             finish:  new Date(2019,2,18,17,00)   
            },
        {    start:   new Date(2019,2,18,18,5),
           finish:  new Date(2019,2,18,19,35)
@@ -47,14 +47,26 @@ $("#dugme").click(()=>{
        
         for(var i=1;i<nizDatuma.length;i++){
 
-            if((nizDatuma[i-1].start.getTime()<dateUnetStart.getTime() && nizDatuma[i-1].finish.getTime()>dateUnetStart.getTime()) || (nizDatuma[i-1].start.getTime()<dateUnetFinish.getTime() && nizDatuma[i-1].finish.getTime()>dateUnetFinish.getTime()) ){
+            if((nizDatuma[i-1].start.getTime()<dateUnetStart.getTime() && nizDatuma[i-1].finish.getTime()>dateUnetStart.getTime()))  {
                 alert("nalazi se unutar");
                 validacija=false;
                 provera=false;
                 break;
             }
+            else if(nizDatuma[i-1].start.getTime()<dateUnetFinish.getTime() && nizDatuma[i-1].finish.getTime()>dateUnetFinish.getTime()){
+                alert("nalazi se unutar prvi elseif");
+                validacija=false;
+                provera=false;
+                break;
+            }
+            else if(nizDatuma[i-1].start.getTime()>dateUnetStart.getTime() && nizDatuma[i-1].finish.getTime()<dateUnetFinish.getTime()){
+                alert("nalazi se unutar drugi elseif");
+                validacija=false;
+                provera=false;
+                break;
+            }
             else if(dateUnetStart.getTime()< nizDatuma[i].start.getTime() && dateUnetFinish.getTime()<nizDatuma[i].start.getTime()){
-                alert("ne nalazi se unutra");
+                alert("ne nalazi se unutra treci elseif");
                  validacija=true;
                  break;
              }
