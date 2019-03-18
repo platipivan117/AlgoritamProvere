@@ -22,6 +22,7 @@ $("#dugme").click(()=>{
 
 
     var date = new Date();
+    alert(date.getTimezoneOffset());
 
 
     var nizDatuma = [
@@ -43,8 +44,7 @@ $("#dugme").click(()=>{
     ];
    
         validacija=false;
-        var provera=true;
-        var brojac=null;
+       
         for(var i=1;i<nizDatuma.length;i++){
 
             if((nizDatuma[i-1].start.getTime()<dateUnetStart.getTime() && nizDatuma[i-1].finish.getTime()>dateUnetStart.getTime()) || (nizDatuma[i-1].start.getTime()<dateUnetFinish.getTime() && nizDatuma[i-1].finish.getTime()>dateUnetFinish.getTime()) ){
